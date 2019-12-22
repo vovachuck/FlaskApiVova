@@ -11,15 +11,15 @@ class Todo(db.Model):
     game = db.Column(db.String(200))
 
     def __repr__(self):
-        return '<Task %r>' % self.id
+        return '<Todo %r>' % self.id
 
 
 
 @app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'POST':
-        playerName= request.form['name']
-        playerGame= request.form['game']
+        playerName= request.json['name']
+        playerGame= request.json['game']
         newPlayer = Todo(name=playerName,game=playerGame)
         try:
             db.session.add(newPlayer)
@@ -47,8 +47,8 @@ def update(id):
     player= Todo.query.get_or_404(id)
 
     if request.method== "POST":
-        player.name= request.form['name']
-        player.game= request.form['game']
+        player.name= request.json['name']
+        player.game= request.json['game']
 
         try:
             db.session.commit()
