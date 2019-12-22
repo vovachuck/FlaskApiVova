@@ -12,6 +12,7 @@ class UserBehavior(TaskSet):
         headers = {'content-type': 'application/json',
                    'Accept-Encoding': 'gzip'}
         self.client.post("/", data=json.dumps({
+            "id":"1",
             "name": "vova", "game": "cs go"
         }),
             headers=headers,
@@ -21,7 +22,7 @@ class UserBehavior(TaskSet):
     def update_player(self):
         headers = {'content-type': 'application/json',
                    'Accept-Encoding': 'gzip'}
-        self.client.put("/update/0", data=json.dumps({
+        self.client.post("/update/5", data=json.dumps({
             "name": "name12",
             "game": "cs go"
             
@@ -31,7 +32,7 @@ class UserBehavior(TaskSet):
 
     @task(6)  # chance to run 2/3
     def delete(self):
-        self.client.delete('/delete/1')
+        self.client.delete('/delete/14')
 
 
 class WebsiteUser(HttpLocust):

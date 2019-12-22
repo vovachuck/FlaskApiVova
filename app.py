@@ -18,8 +18,8 @@ class Todo(db.Model):
 @app.route('/', methods=['POST','GET'])
 def index():
     if request.method == 'POST':
-        playerName= request.json['name']
-        playerGame= request.json['game']
+        playerName= request.form['name']
+        playerGame= request.form['game']
         newPlayer = Todo(name=playerName,game=playerGame)
         try:
             db.session.add(newPlayer)
@@ -34,21 +34,21 @@ def index():
 @app.route('/delete/<int:id>')
 def delete(id):
     playerToDelete = Todo.query.get_or_404(id)
-
     try:
         db.session.delete(playerToDelete)
         db.session.commit()
         return redirect('/')
     except:
         return "Problem with deleting"
+    
 
 @app.route('/update/<int:id>', methods=['GET','POST'])
 def update(id):
     player= Todo.query.get_or_404(id)
 
     if request.method== "POST":
-        player.name= request.json['name']
-        player.game= request.json['game']
+        player.name= request.form['name']
+        player.game= request.form['game']
 
         try:
             db.session.commit()
