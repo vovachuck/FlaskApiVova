@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Flask</title>    
+{% endblock %}
+
+{% block body %}
+<div class="players">
+    <h1>Player Manager</h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Game</th>
+            <th>Delete Update</th>
+        </tr>
+        {% for player in players %}
+        <tr>
+            <td>{{ player.name }}</td>
+            <td>{{ player.game }}</td>
+            <td>
+                <a href="/delete/{{ player.id }}">Delete</a>
+                <a href="/update/{{ player.id }}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <form action="/" method="POST">
+        <input type="text" name="name" id="name">
+        <input type="text" name="game" id="game">
+        <input type="submit" value="Add Player">
+    </form>
+</div>
+{% endblock %}
